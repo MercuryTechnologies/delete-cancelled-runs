@@ -1,0 +1,37 @@
+name: 'Delete cancelled runs'
+
+description: 'Deletes cancelled runs for a given workflow'
+
+inputs:
+  workflow-file:
+    description: 'The basename of the workflow file'
+
+    required: true
+
+  max-deletions:
+    description: 'The maximum number of cancelled runs to delete'
+
+    required: false
+
+    # The default is 3 so that that if there is a backlog of cancelled runs then
+    # this will eventually delete them all with repeated runs of this action.
+    # However, we still keep the default low so that the API call returns
+    # quickly.
+    default: 3
+
+  github-token:
+    description: 'GitHub access token'
+
+    required: false
+
+    default: '${{ github.token }}'
+
+runs:
+  using: 'node20'
+
+  main: 'main.js'
+
+branding:
+  icon: check
+
+  color: green
